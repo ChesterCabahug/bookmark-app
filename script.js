@@ -26,6 +26,9 @@ window.addEventListener("click" , e => {
 validate = (nameValue, urlValue) => {
     const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g
     const regex = new RegExp(expression)
+    if(!nameValue || !urlValue) {
+        alert("please submit values for both fields")
+    }
     if(urlValue.match(regex)) {
         alert("match")
     }
@@ -34,6 +37,9 @@ validate = (nameValue, urlValue) => {
         alert("Please provide a valid web address")
         return false
     }
+
+    // valid
+    return true
 }
 
 
@@ -47,7 +53,9 @@ storeBookmark = (e) => {
     }
     console.log(nameValue, urlValue)
 
-    validate(nameValue, urlValue)
+    if(!validate(nameValue, urlValue)) {
+        return false
+    }
 }
 
 
