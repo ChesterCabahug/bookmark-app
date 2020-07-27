@@ -6,6 +6,8 @@ const websiteNameEl = document.getElementById("website-name")
 const websiteUrlEl = document.getElementById("website-url")
 const bookmarksContainer = document.getElementById("bookmarks-container")
 
+let bookmarks = []
+
 
 // show modal, focus on input
 showModal = () => {
@@ -29,9 +31,6 @@ validate = (nameValue, urlValue) => {
     if(!nameValue || !urlValue) {
         alert("please submit values for both fields")
     }
-    if(urlValue.match(regex)) {
-        alert("match")
-    }
 
     if(!urlValue.match(regex)) {
         alert("Please provide a valid web address")
@@ -51,11 +50,23 @@ storeBookmark = (e) => {
     if(!urlValue.includes("http://", "https://")) {
         urlValue = `https://${urlValue}`
     }
-    console.log(nameValue, urlValue)
 
     if(!validate(nameValue, urlValue)) {
         return false
     }
+
+    const bookmark = {
+        name: nameValue,
+        url: urlValue
+    }
+
+    bookmarks.push(bookmark)
+    console.log(bookmarks)
+
+    
+
+    bookmarkForm.reset()
+    websiteNameEl.focus()
 }
 
 
