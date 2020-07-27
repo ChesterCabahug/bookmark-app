@@ -41,6 +41,24 @@ validate = (nameValue, urlValue) => {
     return true
 }
 
+// fetch
+fetchBookmarks = () => {
+    // get bookmarks from local storage if available
+    if (localStorage.getItem("bookmarks")) {
+        bookmarks = JSON.parse(localStorage.getItem("bookmarks"))
+    } else {
+        // create a bookmarks array in local storage
+        bookmarks = [
+            {
+                name: "Bing",
+                url: "https://www.bing.com/"
+            },
+        ]
+        localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+    }
+    console.log(bookmarks)
+}
+
 
 // handle data from form
 storeBookmark = (e) => {
@@ -61,10 +79,10 @@ storeBookmark = (e) => {
     }
 
     bookmarks.push(bookmark)
-    console.log(JSON.stringify(bookmarks))
 
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
 
+    fetchBookmarks()
     bookmarkForm.reset()
     websiteNameEl.focus()
 }
@@ -72,3 +90,7 @@ storeBookmark = (e) => {
 
 // event listener
 bookmarkForm.addEventListener("submit", storeBookmark)
+
+
+// on load, fetch bookmarks
+fetchBookmarks()
